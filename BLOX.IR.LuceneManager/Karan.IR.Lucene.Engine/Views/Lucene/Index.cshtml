@@ -1,0 +1,42 @@
+﻿<h2>مدیریت ایندکس ها</h2>
+<div>
+    @using (Html.BeginForm("Index", "Lucene"))
+    {
+        <text>نوع ایندکس</text>
+        <select name="luceneEntity">
+            @foreach (var value in Karan.IR.Lucene.Engine.EnumHelper<Karan.IR.Lucene.Engine.LuceneSearchType>.GetValues(Karan.IR.Lucene.Engine.LuceneSearchType.JobRequest))
+            {
+                var description = Karan.IR.Lucene.Engine.EnumHelper<Karan.IR.Lucene.Engine.LuceneSearchType>.GetDisplayValue(value);
+                <option value="@description">@description</option>
+            }
+        </select>
+        <br />
+        <text>حذف ایندکس</text>
+        <input type="radio" value="Delete" name="rbLiceneType">
+        <br />
+        <text>تولید ایندکس</text>
+        <input type="radio" value="Generate" name="rbLiceneType">
+        <br />
+        <text>تعداد ایندکس</text>
+        <input type="radio" value="Count" name="rbLiceneType">
+        <br />
+        <text>نمونه ایندکس</text>
+        <input type="radio" value="Sample" name="rbLiceneType">
+        <br />
+        <input type="submit" value="Submit" />
+    }
+</div>
+
+<div>
+    نتیجه: @ViewBag.Result
+</div>
+@if (ViewBag.ResultList != null)
+{
+    List<Karan.IR.Lucene.Engine.LuceneSearchEO> list = ViewBag.ResultList as List<Karan.IR.Lucene.Engine.LuceneSearchEO>;
+    foreach (var item in list)
+    {
+        <div>
+            @item.Id " - " @item.Title
+        </div>
+    }
+}
